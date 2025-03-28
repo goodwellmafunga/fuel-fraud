@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>🏠 Welcome to the AI Fraud Monitoring System</h2>
+<p>Use the links below to navigate the platform:</p>
+
+<ul>
+    <li><a href="{{ url_for('dashboard.index') }}" style="color: #4B0082;">📊 Dashboard</a></li>
+    <li><a href="{{ url_for('transaction.submit_transaction') }}" style="color: #6A1C9E;">💸 Submit Transaction</a></li>
+    <li><a href="{{ url_for('transaction.transaction_history') }}" style="color: #4B0082;">📄 Transaction History</a></li>
+    <li><a href="{{ url_for('user.list_users') }}" style="color: #007bff;">👥 Manage Users</a></li>
+    <li><a href="{{ url_for('station.list_stations') }}" style="color: #008000;">⛽ Fuel Stations</a></li>
+    <li><a href="{{ url_for('dashboard.export_fraud_report') }}" style="color: #FF5733;">📥 Export Fraud Report (CSV)</a></li>
+    <li><a href="{{ url_for('dashboard.export_fraud_report_pdf') }}" style="color: #FF5733;">🧾 Export Fraud Report (PDF)</a></li>
+    <li><a href="{{ url_for('auth.logout') }}" style="color: #dc3545;">🚪 Logout</a></li>
+</ul>
+
+{% endblock %}

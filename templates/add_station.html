@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2 style="text-align: center; color: #4CAF50;">Add New Fuel Station</h2>
+
+<div style="max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+    <form method="POST" style="display: flex; flex-direction: column;">
+        <label for="name" style="font-weight: bold; margin-bottom: 5px;">Name:</label>
+        <input type="text" name="name" id="name" required style="padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;"/>
+
+        <label for="location" style="font-weight: bold; margin-bottom: 5px;">Location:</label>
+        <input type="text" name="location" id="location" required style="padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;"/>
+
+        <label for="current_stock" style="font-weight: bold; margin-bottom: 5px;">Current Stock (liters):</label>
+        <input type="number" name="current_stock" id="current_stock" required style="padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;"/>
+
+        <label for="price_per_liter" style="font-weight: bold; margin-bottom: 5px;">Price per Liter (USD):</label>
+        <input type="number" step="0.01" name="price_per_liter" id="price_per_liter" required style="padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;"/>
+
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer;">
+            Save Station
+        </button>
+    </form>
+</div>
+{% endblock %}

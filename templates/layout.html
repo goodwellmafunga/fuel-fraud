@@ -1,0 +1,106 @@
+<!-- templates/layout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fraud Monitoring System</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        /* Navbar styles */
+        nav {
+            background-color: #4B0082;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            margin-right: 20px;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #6a1c9e;
+            border-radius: 5px;
+        }
+
+        /* Flash messages */
+        .danger {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .info {
+            color: #007bff;
+        }
+
+        /* Content section */
+        .content-wrapper {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    {% if current_user.is_authenticated %}
+    <!-- Navigation bar for authenticated users -->
+    <nav>
+        <a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+        <a href="{{ url_for('transaction.transaction_history') }}">Transaction History</a>
+        <a href="{{ url_for('dashboard.export_fraud_report') }}">Export Report</a>
+        <a href="{{ url_for('station.list_stations') }}">Manage Stations</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+    {% endif %}
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main content area -->
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 AI Fraud Monitoring System | All Rights Reserved
+    </footer>
+
+</body>
+</html>

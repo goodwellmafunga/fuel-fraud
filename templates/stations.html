@@ -1,0 +1,100 @@
+<!-- templates/stations.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .station-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #4B0082;
+        margin-bottom: 20px;
+    }
+
+    .add-btn {
+        display: inline-block;
+        margin-bottom: 15px;
+        font-weight: bold;
+        color: green;
+        text-decoration: none;
+    }
+
+    .add-btn:hover {
+        text-decoration: underline;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    td {
+        color: #444;
+    }
+
+    .delete-link {
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .delete-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="station-container">
+    <h2>⛽ Fuel Stations Management</h2>
+    <a class="add-btn" href="{{ url_for('station.add_station') }}">➕ Add New Station</a>
+
+    <table>
+        <tr>
+            <th>🛠 Name</th>
+            <th>📍 Location</th>
+            <th>⛽ Stock (Liters)</th>
+            <th>💵 Price per Liter (USD)</th>
+            {% if current_user.role == 'admin' %}
+                <th>⚙️ Action</th>
+            {% endif %}
+        </tr>
+        {% for s in stations %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.location }}</td>
+            <td>{{ s.current_stock }}</td>
+            <td>${{ s.price_per_liter }}</td>
+            {% if current_user.role == 'admin' %}
+            <td>
+                <a class="delete-link" href="{{ url_for('station.delete_station', id=s.id) }}">❌ Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("📍 Station Management Interface Ready");
+    });
+</script>
+
+{% endblock %}

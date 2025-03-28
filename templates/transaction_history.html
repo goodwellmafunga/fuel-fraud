@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    h2 {
+        color: #4B0082;
+        text-align: center;
+        margin-top: 20px;
+    }
+    table {
+        width: 95%;
+        margin: 25px auto;
+        border-collapse: collapse;
+        font-size: 15px;
+        background-color: #fff;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    .flagged {
+        font-weight: bold;
+        color: red;
+    }
+    .safe {
+        color: green;
+    }
+</style>
+
+<h2>⛽ Transaction History Log</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>🆔 ID</th>
+            <th>👤 User</th>
+            <th>🏢 Station</th>
+            <th>💵 Amount (USD)</th>
+            <th>⛽ Fuel Type</th>
+            <th>💳 Payment Method</th>
+            <th>⚠️ Flagged</th>
+            <th>⏰ Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.id }}</td>
+            <td>{{ t.user.username }}</td>
+            <td>{{ t.station.name }}</td>
+            <td>${{ "%.2f"|format(t.amount) }}</td>
+            <td>{{ t.fuel_type }}</td>
+            <td>{{ t.payment_method }}</td>
+            <td class="{{ 'flagged' if t.is_flagged else 'safe' }}">
+                {{ 'Yes 🚨' if t.is_flagged else 'No ✅' }}
+            </td>
+            <td>{{ t.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("📊 Transaction history loaded successfully.");
+    });
+</script>
+{% endblock %}

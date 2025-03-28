@@ -1,0 +1,67 @@
+<!-- templates/reports.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .reports-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #4B0082;
+        margin-bottom: 25px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        text-align: center;
+    }
+
+    a.download-link {
+        display: inline-block;
+        background: #4B0082;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+    a.download-link:hover {
+        background: #5e2ca5;
+    }
+
+    a.download-link i {
+        margin-right: 8px;
+    }
+</style>
+
+<div class="reports-container">
+    <h2>📊 Downloadable Reports</h2>
+    <ul>
+        <li><a class="download-link" href="{{ url_for('dashboard.export_fraud_report') }}">📥 Download CSV Report</a></li>
+        <li><a class="download-link" href="{{ url_for('dashboard.export_fraud_report_pdf') }}">📄 Download PDF Report</a></li>
+    </ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("✅ Reports page loaded.");
+    });
+</script>
+
+{% endblock %}

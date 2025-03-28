@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2 style="text-align: center; color: #4CAF50;">Dashboard</h2>
+
+<div style="max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+    <h3 style="color: #333;">Summary Overview</h3>
+    <ul style="list-style-type: none; padding: 0;">
+        <li style="margin-bottom: 10px; font-weight: bold;">Total Users: <span style="color: #4CAF50;">{{ total_users }}</span></li>
+        <li style="margin-bottom: 10px; font-weight: bold;">Total Stations: <span style="color: #4CAF50;">{{ total_stations }}</span></li>
+        <li style="margin-bottom: 10px; font-weight: bold;">Total Transactions: <span style="color: #4CAF50;">{{ total_txns }}</span></li>
+        <li style="margin-bottom: 10px; font-weight: bold;">Flagged Transactions: <span style="color: red;">{{ flagged_txns }}</span></li>
+    </ul>
+</div>
+
+<h3 style="color: #333; margin-top: 30px;">Recent Fraud Alerts</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd; background-color: #f9f9f9;">
+    <tr style="background-color: #4CAF50; color: white;">
+        <th style="padding: 8px; text-align: center;">Txn ID</th>
+        <th style="padding: 8px; text-align: center;">Reason</th>
+        <th style="padding: 8px; text-align: center;">Severity</th>
+        <th style="padding: 8px; text-align: center;">Time</th>
+    </tr>
+    {% for alert in fraud_alerts %}
+    <tr style="text-align: center;">
+        <td style="padding: 8px;">{{ alert.transaction_id }}</td>
+        <td style="padding: 8px;">{{ alert.reason }}</td>
+        <td style="padding: 8px; color: {% if alert.severity == 'high' %}red{% else %}orange{% endif %};">{{ alert.severity }}</td>
+        <td style="padding: 8px;">{{ alert.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+<!-- templates/submit_transaction.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 25px;
+        background-color: #ffffff;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #4B0082;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    select, input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-top: 5px;
+    }
+
+    button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        background-color: #4B0082;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background-color: #360063;
+    }
+
+    .flash-messages {
+        margin-top: 20px;
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .success {
+        color: green;
+        font-weight: bold;
+    }
+
+    .danger {
+        color: red;
+        font-weight: bold;
+    }
+
+    .info {
+        color: blue;
+        font-weight: bold;
+    }
+</style>
+
+<div class="form-container">
+    <h2>📋 Submit New Fuel Transaction</h2>
+    <form method="POST">
+        <label for="station">⛽ Select Station:</label>
+        <select name="station_id" required>
+            {% for s in stations %}
+                <option value="{{ s.id }}">{{ s.name }} ({{ s.location }})</option>
+            {% endfor %}
+        </select>
+
+        <label for="fuel_type">🛢 Fuel Type:</label>
+        <select name="fuel_type" required>
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+        </select>
+
+        <label for="amount">💵 Amount (USD):</label>
+        <input type="number" name="amount" step="0.01" min="0" required>
+
+        <label for="payment_method">💳 Payment Method:</label>
+        <select name="payment_method" required>
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+        </select>
+
+        <button type="submit">🚀 Submit Transaction</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("🧾 Transaction form ready for input.");
+    });
+</script>
+
+{% endblock %}
